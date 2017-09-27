@@ -77,6 +77,9 @@ class Migration(migrations.Migration):
                 ('codechefHandle', models.CharField(max_length=40)),
                 ('spojHandle', models.CharField(max_length=40)),
                 ('codeforcesHandle', models.CharField(max_length=40)),
+                ('codechefRating', models.CharField(max_length=40)),
+                ('spojRating', models.CharField(max_length=40)),
+                ('codeforcesRating', models.CharField(max_length=40))
             ],
         ),
         migrations.AddField(

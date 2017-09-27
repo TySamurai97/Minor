@@ -10,6 +10,10 @@ def addUserData(name,password,email,mobno,gender,corc,year):
 	ud.save()
 	return ud
 
+def getUserFromName(name):
+	ud = UserData.objects.filter(userName = name.strip())
+	return ud[0]
+
 def addCodeChef(userdata,handle,link,title,success):
 	entry = CodeChef.objects.get_or_create(userdata = userdata,userHandle = handle,problemLink = link,problemTitle = title,success = success)[0]
 	entry.save()
@@ -31,8 +35,15 @@ def addUserHandle(codechefHandle,spojHandle,codeforcesHandle,codechefRating,spoj
 	entry.save()
 	return entry
 
+def getCodeForcesresult(handle):
+	return CodeForces.objects.filter(userHandle = handle)
+
+def getSPOJresult(handle):
+	return SPOJ.objects.filter(userHandle = handle)
+
 
 if __name__ == '__main__':
 	#x = addUserData('ayush','134','asssc@gmail.com','8354038899','m','JIIT','2019')
 	#addCodeChef(x,'ayush333','asd@gmail.com','abc',1)
-	addUserHandle('ab','abc','abcd',1200,1500,1900)
+	#addUserHandle('ab','abc','abcd',1200,1500,1900)
+	print(getCodeForcesresult('cool_head'))
