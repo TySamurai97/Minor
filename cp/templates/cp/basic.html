@@ -1,0 +1,17 @@
+{% extends "cp/index.html" %}
+
+{% block content %}
+<div id="contact" style="margin-left: 480px;" class="container">
+	<table>
+	{% for prob in problem %}
+		<tr>
+		{% if prob.success %}
+		<td style="color: #00ff00;"> {{prob.title}}</td>
+		{% else %}
+		<td style="color: #ff0000;"> {{prob.title}}</td>
+		{% endif %}
+		</tr>
+	{% endfor %}
+	</table>
+</div>
+{% endblock %}

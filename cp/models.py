@@ -14,7 +14,6 @@ class UserData(models.Model):
 		return self.userName
 
 class CodeChef(models.Model):
-	userdata = models.ForeignKey(UserData)
 	userHandle = models.CharField(max_length = 128)
 	problemLink = models.URLField()
 	problemTitle = models.CharField(max_length = 128)
@@ -24,7 +23,6 @@ class CodeChef(models.Model):
 		return self.problemTitle
 
 class SPOJ(models.Model):
-	userdata = models.ForeignKey(UserData)
 	userHandle = models.CharField(max_length = 128)
 	problemLink = models.URLField()
 	problemTitle = models.CharField(max_length = 128)
@@ -34,7 +32,6 @@ class SPOJ(models.Model):
 		return self.problemTitle
 
 class CodeForces(models.Model):
-	userdata = models.ForeignKey(UserData)
 	userHandle = models.CharField(max_length = 128)
 	problemLink = models.URLField()
 	problemTitle = models.CharField(max_length = 128)

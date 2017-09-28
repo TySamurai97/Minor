@@ -1,5 +1,5 @@
 from django.conf.urls import url
 from cp import views
 
-urlpatterns = [url(r'^spoj/', views.spojToJson , name='spojToJson'),
-				url(r'^codeforces/', views.codeforcesToJson , name='codeforcesToJson'),]
+urlpatterns = [url(r'^', views.index , name='index'),
+]
