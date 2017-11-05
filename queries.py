@@ -41,9 +41,15 @@ def getUserFromName(name):
 
 def getCodeForcesresult(handle):
 	return CodeForces.objects.filter(userHandle = handle)
+def deleteCodeForces(handle):
+	CodeForces.objects.filter(userHandle = handle).delete()
+
+def deleteSPOJ(handle):
+	SPOJ.objects.filter(userHandle = handle).delete()	
 
 if __name__ == '__main__':
-	x = addUserData('ayush','134','asssc@gmail.com','8354038899','m','JIIT','2019')
-	addCodeChef(x,'ayush333','asd@gmail.com','abc',1)
-	addUserHandle('ab','abc','abcd',1200,1500,1900)
-	print(len(getCodeForcesresult('cool_head')))
+	#x = addUserData('ayush','134','asssc@gmail.com','8354038899','m','JIIT','2019')
+	#addCodeChef(x,'ayush333','asd@gmail.com','abc',1)
+	#addUserHandle('ab','abc','abcd',1200,1500,1900)
+	#print(len(getCodeForcesresult('cool_head')))
+	deleteSPOJ('ty_samurai97')
