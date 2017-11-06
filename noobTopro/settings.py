@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import dj_database_url
-from decouple import config
+#from decouple import config
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -98,9 +98,12 @@ DATABASES = {
         'USER': 'tanay',
         'PASSWORD': 'pass1234',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '5000',
     }
 }
+
+#DATABASES['default'] = dj_database_url.parse('postgres://tanay:pass1234@localhost:/noobtopro')
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
