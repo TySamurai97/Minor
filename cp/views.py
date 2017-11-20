@@ -9,20 +9,21 @@ import simplejson as jsn
 import cp.crawler.calander as cl
 
 
-#  192.168.43.190:8000/cp/spoj/handle=ty_samurai97&uname=tanay
-#  192.168.43.190:8000/cp/codechef/handle=tanay&uname=tanay
-#  192.168.43.190:8000/cp/codeforces/handle=cool_head&uname=tanay
+#  192.168.43.190:8000/cp/spoj?handle=ty_samurai97&uname=tanay
+#  192.168.43.190:8000/cp/codeforces?handle=cool_head&uname=tanay
+#  ip:port/cp/register?uname=tanay&spjHandle=abc&cfHandle=abc
 
-def calander(request):
+def register(request):
+	uname = request.GET['uname']
+	spjHandle = request.GET['spjHandle']
+	cfHandle = request.GET['cfHandle']
+	return HttpResponse(request.path)
 
 
 
 def spojToJson(request):
-    url = request.path
-    handle = url.split('/')[-1]
-    handle,uname = handle.split('&')
-    handle = handle.split('=')[-1]
-    
+    handle = request.GET['handle']
+    uname = request.GET['uname']
     resultSet = q.getSPOJresult(handle)
     if(len(resultSet)==0):
 	    uname = uname.split('=')[-1]
@@ -40,11 +41,8 @@ def spojToJson(request):
 
 
 def codeforcesToJson(request):
-	url = request.path
-	handle = url.split('/')[-1]
-	handle,uname = handle.split('&')
-	handle = handle.split('=')[-1]
-
+	handle = request.GET['handle']
+	uname = request.GET['uname']
 	resultSet = q.getCodeForcesresult(handle)
 	if(len(resultSet)==0):
 		uname = uname.split('=')[-1]

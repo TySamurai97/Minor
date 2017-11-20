@@ -1,9 +1,12 @@
 from django.db import models
 
-# Create your models here.
+
 class UserData(models.Model):
 	userName = models.CharField(max_length = 128)
-	passWord = models.CharField(max_length = 128)
+	spojHandle = models.CharField(max_length = 40,null=True)
+	codeforcesHandle = models.CharField(max_length = 40,null=True)
+	codeforcesRating = models.IntegerField(null=True)
+	
 	def __str__(self):
 		return self.userName
 
@@ -26,13 +29,3 @@ class CodeForces(models.Model):
 	
 	def __str__(self):
 		return self.problemTitle
-
-class UserHandle(models.Model):
-    codechefHandle = models.CharField(max_length = 40)
-    spojHandle = models.CharField(max_length = 40)
-    codeforcesHandle = models.CharField(max_length = 40)
-    codechefRating = models.IntegerField
-    spojRating = models.IntegerField
-    codeforcesRating = models.IntegerField
-    def __str__(self):
-        return self.userId

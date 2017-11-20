@@ -2,7 +2,7 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','noobTopro.settings')
 import django
 django.setup()
-from cp.models import UserData, SPOJ, CodeForces, UserHandle
+from cp.models import UserData, SPOJ, CodeForces
 
 
 def addUserData(name,password,email,mobno,gender,corc,year):
