@@ -6,11 +6,15 @@ import cp.crawler.cf as cf
 import cp.crawler.spj as spj
 import queries as q
 import simplejson as jsn
+import cp.crawler.calander as cl
 
 
 #  192.168.43.190:8000/cp/spoj/handle=ty_samurai97&uname=tanay
 #  192.168.43.190:8000/cp/codechef/handle=tanay&uname=tanay
 #  192.168.43.190:8000/cp/codeforces/handle=cool_head&uname=tanay
+
+def calander(request):
+
 
 
 def spojToJson(request):
