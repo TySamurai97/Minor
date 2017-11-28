@@ -32,9 +32,7 @@ def fun():
         q=[]
         r=[]
         s=[]
-    
         
-    
         for string in mydivs2.strings:
             q.append(string)
         for string in mydivs4.strings:
