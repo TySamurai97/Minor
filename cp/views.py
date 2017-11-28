@@ -1,28 +1,68 @@
 from django.shortcuts import render
+import _thread as thrd
 from rest_framework import response
 from django.http import HttpResponse
 from django.template import RequestContext
 import cp.crawler.cf as cf
 import cp.crawler.spj as spj
 import cp.crawler.cfRating as cfRating
+import cp.crawler.SpojRanking as spjRating
 import queries as q
 import simplejson as jsn
-import cp.crawler.calander as cl
+import cp.crawler.cal as cl
 
 
 #  192.168.43.190:8000/cp/spoj?handle=ty_samurai97&uname=tanay
 #  192.168.43.190:8000/cp/codeforces?handle=cool_head&uname=tanay
-#  ip:port/cp/register/?uname=tanay&spjHandle=abc&cfHandle=abc&ccHandle=abd
+#  ip:port/cp/register/?uname=tanay&spjHandle=abc&cfHandle=abc
 #  ip:port/cp/compare/?uname=tanay
+
+def gatherData(userData,uname,spjHandle,cfHandle):
+	resultSet = q.getSPOJresult(spjHandle)
+	if(len(resultSet)==0):
+		problemList = spj.createList(spjHandle)
+		uData = q.getUserFromName(uname)
+		for problem in problemList:
+			q.addSPOJ(uData,spjHandle,problem[0],problem[1],problem[2])
+			for tag in problem[3]:
+				q.addProblem(problem[1],tag)
+
+	resultSet = q.getCodeForcesresult(cfHandle)
+	if(len(resultSet)==0):
+		problemList = cf.createList(cfHandle)
+		uData = q.getUserFromName(uname)
+		for problem in problemList:
+			q.addCodeForces(uData,cfHandle,problem[0],problem[1],problem[2])
+			for tag in problem[3]:
+				q.addProblem(problem[1],tag)
+
+	tagList = q.getComparisionData(uname)
+	q.addUserStats(userData, uname, tagList[0]['count'] ,tagList[1]['count'] ,tagList[2]['count']
+		,tagList[3]['count'] ,tagList[4]['count'] ,tagList[5]['count'] ,tagList[6]['count']
+		,tagList[7]['count'] ,tagList[8]['count'] ,tagList[9]['count'])
+
+
+
 
 def register(request):
 	uName = request.GET['uname']
 	spjHandle = request.GET.get('spjHandle')
 	cfHandle = request.GET.get('cfHandle')
-	if(not cfHandle is None ):
-		codefRating = cfRating.getCfRating(cfHandle.strip())
-	q.addUserData(uName,spjHandle,cfHandle,codefRating)
-	return HttpResponse(jsn.dumps({'cfRating':codefRating}), content_type="application/json")
+	if (cf.verifyCF(cfHandle) and spj.validateSpoj(spjHandle) ):
+
+		codefRating = spojRating = ""
+		if(not cfHandle is None ):
+			codefRating = cfRating.getCfRating(cfHandle.strip())
+		if(not spjHandle is None ):
+			spojRating = spjRating.spojRank(spjHandle.strip())
+		print("\n\n\n" + spojRating + "\n\n\n")
+		userdata = q.addUserData(uName,spjHandle,spojRating,cfHandle,codefRating)
+		# start new thread to perform crawling and heavy computations
+		thrd.start_new_thread(gatherData, (userdata,uName,spjHandle,cfHandle) )
+		
+		return HttpResponse(jsn.dumps({'cfRating':codefRating,'spjRating':spojRating}), content_type="application/json")
+
+	return HttpResponse(jsn.dumps({'cfRating':'error','spjRating':'error'}), content_type="application/json")
 
 def compare(request):
 	uName = request.GET.get('uname')
@@ -34,7 +74,6 @@ def spojToJson(request):
     uname = request.GET.get('uname')
     resultSet = q.getSPOJresult(handle)
     if(len(resultSet)==0):
-	    uname = uname.split('=')[-1]
 	    problemList = spj.createList(handle)
 	    uData = q.getUserFromName(uname)
 
@@ -55,7 +94,6 @@ def codeforcesToJson(request):
 	uname = request.GET.get('uname')
 	resultSet = q.getCodeForcesresult(handle)
 	if(len(resultSet)==0):
-		uname = uname.split('=')[-1]
 		problemList = cf.createList(handle)
 		uData = q.getUserFromName(uname)
 		

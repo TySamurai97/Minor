@@ -2,7 +2,7 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','noobTopro.settings')
 import django
 django.setup()
-from cp.models import UserData, SPOJ, CodeForces ,Problems
+from cp.models import UserData, SPOJ, CodeForces ,Problems, UserStats
 from collections import Counter
 
 tagClass = [['implementation','ad-hoc','ad-hoc-1','brute force'],
@@ -28,8 +28,21 @@ tagClassName = {'implementation':0,
 	'data structures':9}
 tagClassNameList = ['implementation','binary_search','dp','game_theory','graphs','greedy','hashing','math','string','data_structures']
 
-def addUserData(userName,spojHandle,codeforcesHandle,codeforcesRating):
-	ud = UserData.objects.get_or_create(userName = userName.strip(),spojHandle = spojHandle,codeforcesHandle = codeforcesHandle,codeforcesRating = codeforcesRating)[0]
+def addUserData(userName, spojHandle, spojRating, codeforcesHandle, codeforcesRating):
+
+	ud = UserData.objects.get_or_create(userName = userName.strip(),spojHandle = spojHandle,
+		spojRating = spojRating,codeforcesHandle = codeforcesHandle,codeforcesRating = codeforcesRating)[0]
+	ud.save()
+	return ud
+
+def addUserStats(userData, userName, implementation ,binarySearch ,dp
+	,gameTheory ,graphs ,greedy ,hashing ,math ,string ,dataStructures):
+
+	ud = UserStats.objects.get_or_create(userData = userData,userName = userName,
+		implementation = implementation ,binarySearch = binarySearch,
+		dp = dp,gameTheory = gameTheory,graphs = graphs,greedy = greedy,
+		hashing = hashing,math =math,string = string,dataStructures = dataStructures)[0]
+	
 	ud.save()
 	return ud
 

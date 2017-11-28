@@ -2,6 +2,12 @@ import bs4 as bs
 import urllib.request
 import pandas as pd
 
+def validateSpoj(userHandle):
+    url = "http://www.spoj.com/users/" + userHandle
+    sauce = urllib.request.urlopen(url).read()
+    soup = bs.BeautifulSoup(sauce,'lxml')
+    return "@" + userHandle.strip() == soup.find_all('h4')[0].text.strip()
+
 def createList(userName):
 	#3D array: i = table number, j = row, k = column
     tables = pd.read_html('http://www.spoj.com/users/' + userName + "/")

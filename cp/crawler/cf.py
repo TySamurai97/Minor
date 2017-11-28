@@ -11,6 +11,11 @@ import urllib.request
 nameTable = list() # details of all submissions done by the user
 Problems = list()
 
+def verifyCF(userHandle):
+    url = "http://codeforces.com/profile/" + userHandle
+    sauce = urllib.request.urlopen(url).read()
+    soup = bs.BeautifulSoup(sauce,'lxml')
+    return not len(soup.find_all('div',class_="user-rank"))==0
 
 def getTags(s):
     sauce = urllib.request.urlopen(s)

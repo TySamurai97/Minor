@@ -9,7 +9,9 @@ def spojRank( str ):
   l=[]
   for node in table.findAll('p'):
      l.append(''.join(node.findAll(text=True)))
-  return(l[2].split("#")[-1].split("(")[0])
+  return (l[2].split("#")[-1].split("(")[0])
 
-print(spojRank("utkarsh028"))
+
+if __name__ == '__main__':
+	print(spojRank("ty_samurai97"))
 

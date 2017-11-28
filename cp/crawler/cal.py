@@ -46,12 +46,8 @@ def fun():
         table.append(dc)
     return table
 
-
-table=fun()
-for x in table:
-    print(x)
-
-
-
-
-
+if __name__ == '__main__':
+        
+    table=fun()
+    for x in table:
+        print(x)
