@@ -19,16 +19,18 @@ def getTags(s):
     
     #print(type(roundBox[1]))
     ''' 1st tag inside roundBox is the <div> for problem tags '''
-    tagBox = roundBox[1].next_sibling.next_sibling
-    #print(tagBox)
-    tagList = []
-    for childTag in tagBox.find_all('span'):
-        tag = childTag.string
-        if not tag==None:
-            tag = tag.strip()
-        tagList.append(tag)
-    tagList = tagList[:-1]
-    return tagList
+    if(len(roundBox)>1):
+        tagBox = roundBox[1].next_sibling.next_sibling
+        #print(tagBox)
+        tagList = []
+        for childTag in tagBox.find_all('span'):
+            tag = childTag.string
+            if not tag==None:
+                tag = tag.strip()
+            tagList.append(tag)
+        tagList = tagList[:-1]
+        return tagList
+    return ['']
 
 def getPageList(s):
     sauce = urllib.request.urlopen(s)
@@ -131,4 +133,5 @@ def createList(s):
 
 if __name__ == '__main__':
     
-    print(createList('cool_head'))
+    # print(createList('cool_head'))
+    print(getTags('http://codeforces.com/problemset/problem/859/B'))
