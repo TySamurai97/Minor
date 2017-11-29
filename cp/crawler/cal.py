@@ -7,7 +7,7 @@
 import bs4 as bs
 import urllib.request
 
-def fun():
+def getCal():
     url = "http://clist.by"
     sauce = urllib.request.urlopen(url).read()
     soup = bs.BeautifulSoup(sauce,'lxml')
@@ -37,9 +37,9 @@ def fun():
             q.append(string)
         for string in mydivs4.strings:
             s.append(string)
-        dc['Start/End Time'] = str(mydivs.strip())
-        dc['Duration']= str(q[0])
-        dc['Event']=str(s[2])
+        dc['startEndTime'] = str(mydivs.strip())
+        dc['duration']= str(q[0])
+        dc['event']=str(s[2])
         for link in aa_div.findAll('a'):
             dc['link']=str( link.get('href'))
     
@@ -48,6 +48,6 @@ def fun():
 
 if __name__ == '__main__':
         
-    table=fun()
+    table=getCal()
     for x in table:
         print(x)

@@ -130,5 +130,13 @@ def getComparisionData(userName):
 		ansDist.append({ 'type':tagClassNameList[i], 'count':tagCount[i]})
 	return ansDist
 
+
+def getSortedUsersOnTags(tagName):
+	result = UserStats.objects.order_by("-"+tagName)
+	resultList = []
+	for ustats in result:
+		resultList.append({'uName':ustats.userName})
+	return resultList
+
 if __name__ == '__main__':
 	print(getComparisionData('tanay'))

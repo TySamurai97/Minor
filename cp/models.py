@@ -8,7 +8,6 @@ class UserData(models.Model):
 	spojRating = models.CharField(max_length = 40,null=True)
 
 	
-	
 	def __str__(self):
 		return self.userName
 
