@@ -24,7 +24,7 @@ def getCal():
         mydivs = x.find("div", attrs={ "class" : "col-md-5 col-sm-12 start-time" }).text
         mydivs2 = x.find("div", attrs={ "class" : "col-md-3 col-sm-6 duration" })
         mydivs4 = x.find("div", attrs={ "class" : "col-md-7 col-sm-8 event" })
-        list2= soup.find('div', {"class":"col-md-7 col-sm-8 event"})
+        list2= x.find('div', {"class":"col-md-7 col-sm-8 event"})
         aa_div = list2.find('div', {"class":"title"})
    
         mydivs3=x.find()

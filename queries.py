@@ -1,4 +1,5 @@
 import os
+import random
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','noobTopro.settings')
 import django
 django.setup()
@@ -130,13 +131,23 @@ def getComparisionData(userName):
 		ansDist.append({ 'type':tagClassNameList[i], 'count':tagCount[i]})
 	return ansDist
 
-
 def getSortedUsersOnTags(tagName):
 	result = UserStats.objects.order_by("-"+tagName)
 	resultList = []
 	for ustats in result:
 		resultList.append({'uName':ustats.userName})
 	return resultList
+
+def getUnsolvedList(uName):
+	uData = UserData.objects.filter( userName = uName )
+	cfList = SPOJ.objects.filter(userdata = uData, success = 0)
+	spjList = CodeForces.objects.filter(userdata = uData, success = 0)
+	lst = []
+	for x in spjList:
+		lst.append( { 'title':x.problemTitle,'link':x.problemLink,'success':x.success} )
+	for x in cfList:
+		lst.append( { 'title':x.problemTitle,'link':x.problemLink,'success':x.success} )
+	return lst
 
 if __name__ == '__main__':
 	print(getComparisionData('tanay'))

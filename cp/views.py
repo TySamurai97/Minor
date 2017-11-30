@@ -19,12 +19,17 @@ import cp.crawler.cal as cl
 #  ip:port/cp/sortUsers/?tag=dp
 #  ip:port/cp/getCal
 #  ip:port/cp/getUserProfileData/?uName=tanay
+#  p:port/cp/getUnsolvedList/?uName=tanay
+
+def getUnsolvedList(request):
+	uName = request.GET.get('uName')
+	return HttpResponse(jsn.dumps(q.getUnsolvedList(uName)), content_type="application/json")
 
 def getCal(request):
 	return HttpResponse(jsn.dumps(cl.getCal()), content_type="application/json")
 
 def sortUsers(request):
-	tagName = request.GET['tag']
+	tagName = request.GET.get('tag')
 	return HttpResponse(jsn.dumps(q.getSortedUsersOnTags(tagName.strip())), content_type="application/json")
 
 def gatherData(userData,uname,spjHandle,cfHandle):
@@ -70,7 +75,6 @@ def register(request):
 		return HttpResponse(jsn.dumps({'cfRating':codefRating,'spjRating':spojRating}), content_type="application/json")
 
 	return HttpResponse(jsn.dumps({'cfRating':'error','spjRating':'error'}), content_type="application/json")
-
 
 def spojToJson(request):
     handle = request.GET.get('handle')

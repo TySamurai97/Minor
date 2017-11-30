@@ -130,6 +130,7 @@ def createList(s):
         Problems.append(prob)
     i=0
     for prob in Problems:
+        print( prob )
         Problems[i].append( getTags(Problems[i][0]) )
         i+=1
     print("\n\n codeforces data fetched \n\n")

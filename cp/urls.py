@@ -7,4 +7,5 @@ urlpatterns = [url(r'^spoj/', views.spojToJson , name='spojToJson'),
 				url(r'^compare/', views.compare , name='compare'),
 				url(r'^sortUsers/', views.sortUsers , name='sortUsers'),
 				url(r'^getCal/', views.getCal , name='getCal'),
-				url(r'^getUserProfileData/', views.getUserProfileData , name='getUserProfileData'),]
+				url(r'^getUserProfileData/', views.getUserProfileData , name='getUserProfileData'),
+				url(r'^getUnsolvedList/', views.getUnsolvedList , name='getUnsolvedList'),]
